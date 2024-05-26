@@ -1,16 +1,32 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>ReservationApp</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
+<head>
+  <title>ReservationApp</title>
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
-  </head>
+  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+  <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+</head>
 
-  <body>
-    <%= yield %>
-  </body>
+<body>
+  <header>
+    <% if user_signed_in? %>
+      <div class="user-info">
+        <%= image_tag current_user.profile_image.url, alt: current_user.name, class: 'profile-image' if current_user.profile_image.present? %>
+        <%= current_user.name %>
+        <div class="dropdown">
+          <%= link_to 'Profile', user_path(current_user) %>
+          <%= link_to 'Edit Profile', edit_user_path(current_user) %>
+          <%= link_to 'Logout', destroy_user_session_path, method: :delete %>
+        </div>
+      </div>
+    <% else %>
+      <%= link_to 'Login', new_user_session_path %>
+      <%= link_to 'Sign up', new_user_registration_path %>
+    <% end %>
+  </header>
+
+  <%= yield %>
+</body>
 </html>
