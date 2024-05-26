@@ -1,0 +1,18 @@
+<div class="container mt-4">
+  <h1>施設一覧</h1>
+  <div class="row">
+    <% @rooms.each do |room| %>
+      <div class="col-md-4">
+        <div class="card mb-4">
+          <div class="card-body">
+            <h5 class="card-title"><%= room.name %></h5>
+            <p class="card-text"><%= room.description %></p>
+            <p>チェックイン: <%= room.formatted_checkin_date %></p>
+            <p>チェックアウト: <%= room.formatted_checkout_date %></p>
+            <%= link_to '詳細を見る', room_path(room), class: "btn btn-primary" %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
