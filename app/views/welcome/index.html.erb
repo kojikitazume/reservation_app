@@ -13,7 +13,16 @@
   <body>
     <header>
       <nav>
-        <% if user_signed_in? %> 
+        <% if user_signed_in? %>
+          <div class="user-info">
+            <% if current_user.profile_image.present? %>
+              <%= image_tag current_user.profile_image, alt: current_user.name, class: 'profile-image' %>
+            <% end %>
+            <%= current_user.name %>
+            <div class="dropdown">
+              <%= link_to 'Profile', user_path(current_user) %>
+            </div>
+          </div>
           Logged in as <strong><%= current_user.email %></strong>.
           <%= link_to 'プロフィール変更', edit_user_registration_path %> |
           <%= link_to "ログアウト", destroy_user_session_path, method: :delete %>
@@ -23,7 +32,20 @@
         <% end %>
       </nav>
     </header>
-
+    <div class="sample-box">
+      <img src="/top.jpg">
+      <div class="good">
+        <div class="card">
+          <div class="card-body">
+            <%= form_with url: '/rooms', method: :get do |form|%>
+              <h1 class="card-title">Potepan Shareで まだ体験したことのない 旅をしよう</h1>
+              <%= form.text_field :address, placeholder: '東京' %>
+              <button class="btn btn-primary">探す</button>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
     <p class="notice"><%= notice %></p>
     <p class="alert"><%= alert %></p>
 
