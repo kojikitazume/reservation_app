@@ -2,6 +2,7 @@
 <html>
 <head>
   <title>ReservationApp</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
   <%= csrf_meta_tags %>
   <%= csp_meta_tag %>
 
@@ -16,17 +17,18 @@
         <%= image_tag current_user.profile_image.url, alt: current_user.name, class: 'profile-image' if current_user.profile_image.present? %>
         <%= current_user.name %>
         <div class="dropdown">
-          <%= link_to 'Profile', user_path(current_user) %>
-          <%= link_to 'Edit Profile', edit_user_path(current_user) %>
-          <%= link_to 'Logout', destroy_user_session_path, method: :delete %>
+          <%= link_to 'プロフィール', user_path(current_user) %>
+          <%= link_to 'プロフィール編集', edit_user_path(current_user) %>
+          <%= button_to "ログアウト", destroy_user_session_path, { method: :delete, class: 'btn btn-link nav-item' } %>
         </div>
       </div>
     <% else %>
-      <%= link_to 'ログイン', new_user_session_path %>
-      <%= link_to '新規登録', new_user_registration_path %>
+      <%= link_to 'ログイン', new_user_session_path, class: 'btn btn-link nav-item' %>
+      <%= link_to '新規登録', new_user_registration_path, class: 'btn btn-link nav-item' %>
     <% end %>
   </header>
 
   <%= yield %>
 </body>
 </html>
+
