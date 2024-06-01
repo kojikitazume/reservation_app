@@ -1,19 +1,20 @@
-<div class="container mt-4">
+<% if @room.present? %>
   <h1><%= @room.name %></h1>
-  <p><%= @room.description %></p>
-  <p>チェックイン: <%= @room.formatted_checkin_date %></p>
-  <p>チェックアウト: <%= @room.formatted_checkout_date %></p>
 
-  <h2>予約する</h2>
-  <%= form_with(model: [@room, @reservation]) do |form| %>
-    <div class="form-group">
-      <%= form.label :start_date, "開始日" %>
-      <%= form.datetime_select :start_date, class: "form-control" %>
+  <% if @room.image.present? %>
+  <%= image_tag 'default_room_image.png', alt: @room.name %>
+  <% else %>
+    <div class="default-image">
+      <%= image_tag 'default_room_image.png', alt: 'Default Room Image' %>
     </div>
-    <div class="form-group">
-      <%= form.label :end_date, "終了日" %>
-      <%= form.datetime_select :end_date, class: "form-control" %>
-    </div>
-    <%= form.submit "予約", class: "btn btn-primary" %>
   <% end %>
-</div>
+
+  <p><%= @room.description %></p>
+  <p>料金: <%= @room.price %>円/日</p>
+  <p>住所: <%= @room.address %></p>
+
+  <%= link_to '戻る', rooms_path %>
+<% else %>
+  <p>データが見つかりません。</p>
+<% end %>
+<%= link_to '予約する', new_reservation_path(room_id: @room.id) %>

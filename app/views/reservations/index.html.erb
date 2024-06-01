@@ -1,22 +1,37 @@
 <h1>予約一覧</h1>
 
-<table class="table">
-  <thead>
-    <tr>
-      <th>施設名</th>
-      <th>チェックイン</th>
-      <th>チェックアウト</th>
-      <th>予約確定日時</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @reservations.each do |reservation| %>
+<% if @reservations.any? %>
+  <table>
+    <thead>
       <tr>
-        <td><%= reservation.room.name %></td>
-        <td><%= format_date(reservation.check_in) %></td>
-        <td><%= format_date(reservation.check_out) %></td>
-        <td><%= format_datetime(reservation.created_at) %></td>
+        <th>Room</th>
+        <th>Check-in Date</th>
+        <th>Check-out Date</th>
+        <th>Guests</th>
+        <th>Total Price</th>
+        <th></th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
+    <tbody>
+      <% @reservations.each do |reservation| %>
+        <tr>
+          <td><%= reservation.room.present? ? reservation.room.name : "No Room" %></td>
+          <td><%= reservation.check_in_date %></td>
+          <td><%= reservation.check_out_date %></td>
+          <td><%= reservation.number_of_guests %></td>
+          <td>
+            <% if reservation.room.present? && reservation.room.price.present? && reservation.check_in_date.present? && reservation.check_out_date.present? && reservation.number_of_guests.present? %>
+              <%= reservation.room.price * (reservation.check_out_date - reservation.check_in_date).to_i * reservation.number_of_guests %>
+            <% else %>
+              "Incomplete data"
+            <% end %>
+          </td>
+          <td><%= link_to 'Show', room_reservation_path(reservation.room, reservation) %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <p>You have no reservations.</p>
+<% end %>
+

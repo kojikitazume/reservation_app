@@ -1,2 +1,9 @@
 class ApplicationController < ActionController::Base
-end
+    before_action :set_current_room
+  
+    private
+  
+    def set_current_room
+      @room = Room.first 
+    end
+  end

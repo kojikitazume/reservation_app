@@ -1,2 +1,72 @@
-<h1>Reservations#new</h1>
-<p>Find me in app/views/reservations/new.html.erb</p>
+<h1>新規予約</h1>
+
+<%= form_with model: @reservation, url: reservations_path, local: true do |form| %>
+
+
+  <div class="field">
+    <%= form.label :チェックイン日 %>
+    <%= form.date_field :check_in_date, id: 'check_in_date' %>
+  </div>
+
+  <div class="field">
+    <%= form.label :チェックアウト日 %>
+    <%= form.date_field :check_out_date, id: 'check_out_date' %>
+  </div>
+
+  <div class="field">
+    <%= form.label :人数 %>
+    <%= form.number_field :number_of_guests, id: 'number_of_guests' %>
+  </div>
+
+  <%= form.hidden_field :room_id, value: @room.id, id: 'room_id' %>
+
+  <div class="field">
+    <%= form.label :日数 %>
+    <%= form.text_field :days, id: 'days', readonly: true %>
+  </div>
+
+  <div class="field">
+    <%= form.label :合計金額 %>
+    <%= form.text_field :total_price, id: 'total_price', readonly: true %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    function calculateTotal() {
+      const checkInDate = new Date(document.getElementById('check_in_date').value);
+      const checkOutDate = new Date(document.getElementById('check_out_date').value);
+      const numberOfGuests = parseInt(document.getElementById('number_of_guests').value);
+      const roomPrice = <%= @room.price %>;
+
+      if (checkInDate && checkOutDate && numberOfGuests && !isNaN(numberOfGuests) && roomPrice) {
+        const timeDifference = checkOutDate - checkInDate;
+        const days = timeDifference / (1000 * 3600 * 24);
+
+        if (days > 0) {
+          const totalPrice = days * roomPrice * numberOfGuests;
+          document.getElementById('days').value = days;
+          document.getElementById('total_price').value = totalPrice;
+        } else {
+          document.getElementById('days').value = '';
+          document.getElementById('total_price').value = '';
+        }
+      } else {
+        document.getElementById('days').value = '';
+        document.getElementById('total_price').value = '';
+      }
+    }
+
+    document.getElementById('check_in_date').addEventListener('change', calculateTotal);
+    document.getElementById('check_out_date').addEventListener('change', calculateTotal);
+    document.getElementById('number_of_guests').addEventListener('input', calculateTotal);
+  });
+</script>
+
+
+
+<%= link_to '戻る', room_path(@room) %>

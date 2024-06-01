@@ -1,22 +1,20 @@
 Rails.application.routes.draw do
   devise_for :users
-  get 'users/show'
-  get 'users/edit'
-  get 'users/update'
-  get 'reservations/index'
-  get 'reservations/new'
-  get 'reservations/create'
-  get 'rooms/index'
-  get 'rooms/show'
-  get 'rooms/new'
-  get 'rooms/create'
-  get 'rooms/edit'
-  get 'rooms/update'
   
-  root to: 'welcome#index'
-
+  # ユーザー関連のルーティング
   resources :users, only: [:show, :edit, :update]
-  resources :rooms do
-    resources :reservations, only: [:new, :create, :index]
-  end
+
+  # 部屋関連のルーティング
+  resources :rooms, only: [:index, :show, :new, :create]
+
+  # 予約関連のルーティング
+  resources :reservations, only: [:index, :new, :create, :show]
+
+  # 検索用ルーティング
+  get 'search', to: 'rooms#search'
+
+  # ルートパスの設定
+  root to: 'welcome#index'
 end
+
+

@@ -1,51 +1,33 @@
 class RoomsController < ApplicationController
-  before_action :authenticate_user!, except: [:index, :show]
-  before_action :set_room, only: [:show, :edit, :update, :destroy]
-
   def index
     @rooms = Room.all
+    if params[:address]
+      @rooms = @rooms.where('address LIKE(?)', "%#{params[:address]}%")
+    end
+    if params[:keyword]
+      @rooms = @rooms.where('name LIKE(?)', "%#{params[:keyword]}%")
+    end
   end
-
-  def show
-    @reservation = Reservation.new
-  end
-
   def new
     @room = Room.new
+
   end
 
   def create
-    @room = Room.new(room_params)
+    @room = Room.new(params.require(:room).permit(:name, :introduce, :price, :address, :image))
+    @room.user_id = current_user.id
     if @room.save
-      redirect_to @room, notice: 'Room was successfully created.'
+      redirect_to action: :show, id: @room.id
     else
-      render :new
+      render action: :new
     end
   end
 
-  def edit
-  end
-
-  def update
-    if @room.update(room_params)
-      redirect_to @room, notice: 'Room was successfully updated.'
-    else
-      render :edit
-    end
-  end
-
-  def destroy
-    @room.destroy
-    redirect_to rooms_url, notice: 'Room was successfully destroyed.'
-  end
-
-  private
-
-  def set_room
+  def show
     @room = Room.find(params[:id])
   end
 
-  def room_params
-    params.require(:room).permit(:name, :description, :checkin_date, :checkout_date)
+  def posts
+    @rooms = Room.where(user_id: current_user.id)
   end
 end

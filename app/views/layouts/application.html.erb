@@ -2,33 +2,42 @@
 <html>
 <head>
   <title>ReservationApp</title>
+  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+  <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <%= csrf_meta_tags %>
   <%= csp_meta_tag %>
-
-  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-  <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
 </head>
 
 <body>
-  <header>
-    <% if user_signed_in? %>
-      <div class="user-info">
-        <%= image_tag current_user.profile_image.url, alt: current_user.name, class: 'profile-image' if current_user.profile_image.present? %>
-        <%= current_user.name %>
-        <div class="dropdown">
-          <%= link_to 'プロフィール', user_path(current_user) %>
-          <%= link_to 'プロフィール編集', edit_user_path(current_user) %>
-          <%= button_to "ログアウト", destroy_user_session_path, { method: :delete, class: 'btn btn-link nav-item' } %>
-        </div>
-      </div>
-    <% else %>
-      <%= link_to 'ログイン', new_user_session_path, class: 'btn btn-link nav-item' %>
-      <%= link_to '新規登録', new_user_registration_path, class: 'btn btn-link nav-item' %>
-    <% end %>
-  </header>
+<header class="navbar">
+  <div class="logo">
+    <%= image_tag 'logo.png', alt: 'Logo' %>
+  </div>
+  <% if user_signed_in? %>
+  <div class="dropdown">
+    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    <%= image_tag(current_user.profile_image.url.presence || 'default-avatar.png', alt: current_user.name, class: "avatar", size: "30x30") %>
+      <%= current_user.name %>
+    </button>
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+      <%= link_to '施設の新規登録', new_room_path, class: "dropdown-item" %>
+      <%= link_to '予約済み一覧', reservations_path, class: "dropdown-item" %>
+      <%= link_to '登録済み一覧', rooms_path, class: "dropdown-item" %>
+      <%= link_to 'アカウント設定', edit_user_registration_path, class: "dropdown-item" %>
+      <%= button_to 'ログアウト', destroy_user_session_path, method: :delete, class: 'dropdown-item' %>
+    </div>
+  </div>
+  <% else %>
+    <%= link_to 'ログイン', new_user_session_path, class: 'btn btn-link nav-item' %>
+    <%= link_to '新規登録', new_user_registration_path, class: 'btn btn-link nav-item' %>
+  <% end %>
+</header>
 
-  <%= yield %>
+<%= yield %>
 </body>
 </html>
+
+
+
 

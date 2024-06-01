@@ -14,19 +14,20 @@
   <header>
   
 </header>
-<div class="sample-box">
-  <div class="good">
-    <div class="card">
-      <div class="card-body">
-        <%= form_with url: '/rooms', method: :get do |form|%>
-          <h1 class="card-title">Potepan Shareで まだ体験したことのない 旅をしよう</h1>
-          <%= form.text_field :address, placeholder: '東京' %>
-          <button class="btn btn-primary">探す</button>
-        <% end %>
+
+<div class="container text-center mt-5">
+      <div class="card mx-auto p-4" style="max-width: 600px;">
+        <div class="card-body">
+          <h1 class="card-title display-4">Potepan Shareで まだ体験したことのない 旅をしよう</h1>
+          <%= form_with url: '/rooms', method: :get, class: 'form-inline justify-content-center mt-4' do |form| %>
+            <div class="form-group mb-2">
+              <%= form.text_field :address, placeholder: '東京', class: 'form-control form-control-lg' %>
+            </div>
+            <button class="btn btn-primary btn-lg ml-2 mb-2">探す</button>
+          <% end %>
+        </div>
       </div>
     </div>
-  </div>
-</div>
     <p class="notice"><%= notice %></p>
     <p class="alert"><%= alert %></p>
 

@@ -1,22 +1,43 @@
-<div class="container mt-4">
-  <h1>新しい施設を登録する</h1>
-  <%= form_with(model: @room, local: true) do |form| %>
-    <div class="form-group">
-      <%= form.label :name, "施設名" %>
-      <%= form.text_field :name, class: "form-control" %>
+<h1>施設登録</h1>
+
+<%= form_with model: @room, local: true do |f| %>
+  <% if @room.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@room.errors.count, "error") %> prohibited this room from being saved:</h2>
+      <ul>
+        <% @room.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
     </div>
-    <div class="form-group">
-      <%= form.label :description, "説明" %>
-      <%= form.text_area :description, class: "form-control" %>
-    </div>
-    <div class="form-group">
-      <%= form.label :checkin_date, "チェックイン日" %>
-      <%= form.date_select :checkin_date, class: "form-control" %>
-    </div>
-    <div class="form-group">
-      <%= form.label :checkout_date, "チェックアウト日" %>
-      <%= form.date_select :checkout_date, class: "form-control" %>
-    </div>
-    <%= form.submit "登録", class: "btn btn-primary" %>
   <% end %>
-</div>
+
+  <div>
+    <%= f.label :name, '施設名' %>
+    <%= f.text_field :name %>
+  </div>
+
+  <div>
+    <%= f.label :description, '施設詳細' %>
+    <%= f.text_area :description %>
+  </div>
+
+  <div>
+    <%= f.label :price, '料金' %>
+    <%= f.number_field :price %>
+  </div>
+
+  <div>
+    <%= f.label :address, '住所' %>
+    <%= f.text_field :address %>
+  </div>
+
+  <div>
+    <%= f.label :image, '画像' %>
+    <%= f.file_field :image %>
+  </div>
+
+  <div>
+    <%= f.submit '登録' %>
+  </div>
+<% end %>

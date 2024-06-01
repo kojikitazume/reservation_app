@@ -1,18 +1,12 @@
-<div class="container mt-4">
-  <h1>施設一覧</h1>
-  <div class="row">
-    <% @rooms.each do |room| %>
-      <div class="col-md-4">
-        <div class="card mb-4">
-          <div class="card-body">
-            <h5 class="card-title"><%= room.name %></h5>
-            <p class="card-text"><%= room.description %></p>
-            <p>チェックイン: <%= room.formatted_checkin_date %></p>
-            <p>チェックアウト: <%= room.formatted_checkout_date %></p>
-            <%= link_to '詳細を見る', room_path(room), class: "btn btn-primary" %>
-          </div>
-        </div>
-      </div>
-    <% end %>
+<h1>施設一覧</h1>
+
+
+<% @rooms.each do |room| %>
+  <div>
+  <%= image_tag 'default_room_image.png', alt: 'Default Room Image' if room.image.blank? %>
+    <h2><%= link_to room.name, room %></h2>
+    <p><%= room.description %></p>
+    <p>料金: <%= room.price %>円/日</p>
+    <p>作成日: <%= room.created_at.strftime("%Y年%m月%d日") %></p>
   </div>
-</div>
+<% end %>
