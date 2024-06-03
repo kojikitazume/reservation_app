@@ -1,37 +1,21 @@
 <h1>予約一覧</h1>
-
-<% if @reservations.any? %>
-  <table>
-    <thead>
-      <tr>
-        <th>Room</th>
-        <th>Check-in Date</th>
-        <th>Check-out Date</th>
-        <th>Guests</th>
-        <th>Total Price</th>
-        <th></th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @reservations.each do |reservation| %>
-        <tr>
-          <td><%= reservation.room.present? ? reservation.room.name : "No Room" %></td>
-          <td><%= reservation.check_in_date %></td>
-          <td><%= reservation.check_out_date %></td>
-          <td><%= reservation.number_of_guests %></td>
-          <td>
-            <% if reservation.room.present? && reservation.room.price.present? && reservation.check_in_date.present? && reservation.check_out_date.present? && reservation.number_of_guests.present? %>
-              <%= reservation.room.price * (reservation.check_out_date - reservation.check_in_date).to_i * reservation.number_of_guests %>
-            <% else %>
-              "Incomplete data"
-            <% end %>
-          </td>
-          <td><%= link_to 'Show', room_reservation_path(reservation.room, reservation) %></td>
-        </tr>
+<% @reservations.each do |reservation| %>
+  <div class="reservation">
+    <div class="room-image">
+      <% if reservation.room.image.present? %>
+        <%= image_tag 'default_room_image.png', alt: reservation.room.name %>
+      <% else %>
+        <%= image_tag 'default_room_image.png', alt: 'デフォルト画像' %>
       <% end %>
-    </tbody>
-  </table>
-<% else %>
-  <p>You have no reservations.</p>
+    </div>
+    <div class="room-details">
+      <h2><%= reservation.room.name %></h2>
+      <p><%= reservation.room.description %></p>
+      <p>合計料金: <%= number_to_currency(reservation.total_price) %></p>
+      <p>チェックイン日: <%= reservation.check_in_date %></p>
+      <p>チェックアウト日: <%= reservation.check_out_date %></p>
+      <p>予約確定日時: <%= reservation.created_at.strftime('%Y-%m-%d %H:%M:%S') %></p>
+    </div>
+  </div>
 <% end %>
 

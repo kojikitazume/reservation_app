@@ -1,37 +1,35 @@
 <h1>新規予約</h1>
 
-<%= form_with model: @reservation, url: reservations_path, local: true do |form| %>
-
-
+<%= form_with model: @reservation, url: confirm_reservations_path, local: true do |form| %>
   <div class="field">
-    <%= form.label :チェックイン日 %>
+    <%= form.label :check_in_date, 'チェックイン日' %>
     <%= form.date_field :check_in_date, id: 'check_in_date' %>
   </div>
 
   <div class="field">
-    <%= form.label :チェックアウト日 %>
+    <%= form.label :check_out_date, 'チェックアウト日' %>
     <%= form.date_field :check_out_date, id: 'check_out_date' %>
   </div>
 
   <div class="field">
-    <%= form.label :人数 %>
+    <%= form.label :number_of_guests, '人数' %>
     <%= form.number_field :number_of_guests, id: 'number_of_guests' %>
   </div>
 
   <%= form.hidden_field :room_id, value: @room.id, id: 'room_id' %>
 
   <div class="field">
-    <%= form.label :日数 %>
-    <%= form.text_field :days, id: 'days', readonly: true %>
+    <%= form.label :days, '日数' %>
+    <%= form.text_field :days, id: 'days', disabled: true %>
   </div>
 
   <div class="field">
-    <%= form.label :合計金額 %>
-    <%= form.text_field :total_price, id: 'total_price', readonly: true %>
+    <%= form.label :total_price, '合計金額' %>
+    <%= form.text_field :total_price, id: 'total_price', disabled: true %>
   </div>
 
   <div class="actions">
-    <%= form.submit %>
+  <%= form.submit '予約内容を確認する', formaction: confirm_reservations_path %>
   </div>
 <% end %>
 
@@ -67,6 +65,6 @@
   });
 </script>
 
-
-
-<%= link_to '戻る', room_path(@room) %>
+<div class="actions">
+  <%= link_to '戻る', room_path(@room) %>
+</div>

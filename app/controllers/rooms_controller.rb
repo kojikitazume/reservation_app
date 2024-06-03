@@ -1,6 +1,6 @@
 class RoomsController < ApplicationController
   def index
-    @rooms = Room.all
+      @rooms = Room.all
     if params[:address]
       @rooms = @rooms.where('address LIKE(?)', "%#{params[:address]}%")
     end
@@ -25,6 +25,9 @@ class RoomsController < ApplicationController
 
   def show
     @room = Room.find(params[:id])
+  rescue ActiveRecord::RecordNotFound
+    flash[:alert] = 'Room not found'
+    redirect_to rooms_path
   end
 
   def posts
