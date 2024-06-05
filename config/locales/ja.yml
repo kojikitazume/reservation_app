@@ -1,0 +1,26 @@
+ja:
+  hello: "こんにちは"
+  activerecord:
+    errors:
+      models:
+        room:
+          attributes:
+            description:
+              blank: "が入力されていません"
+            price:
+              greater_than_or_equal_to: "は1円以上の値を入力してください"
+  helpers:
+    label:
+      model_name:
+        attribute_name: "表示される属性名"
+  views:
+    model_name:
+      action_name:
+        link_name: "リンクテキスト"
+
+  activerecord:
+    errors:
+      models:
+        room:
+          one: "保存できませんでした: 1つのエラーがあります:"
+          other: "保存できませんでした: %{count}のエラーがあります:"

@@ -5,7 +5,20 @@ class Reservation < ApplicationRecord
   validates :check_in_date, presence: true
   validates :check_out_date, presence: true
   validates :number_of_guests, presence: true, numericality: { greater_than: 0 }
-end
+  validate :check_in_date_cannot_be_in_the_past
+  validate :check_out_date_after_check_in_date
+
+  before_save :total_price
+
+  def calculate_total_price
+    room_price_per_day = room.price.to_d
+    number_of_days = (check_out_date - check_in_date).to_i
+    self.total_price = (room_price_per_day * number_of_days * number_of_guests).to_i
+  end
+
+  def total_price
+    calculate_total_price
+  end
 
   private
 
@@ -20,4 +33,4 @@ end
       errors.add(:check_out_date, "must be after the check-in date")
     end
   end
-
+end

@@ -1,11 +1,10 @@
-<!-- app/views/reservations/confirm.html.erb -->
 <h1>予約内容確認</h1>
 
 <p>チェックイン日: <%= @reservation.check_in_date %></p>
 <p>チェックアウト日: <%= @reservation.check_out_date %></p>
-<p>宿泊人数: <%= @reservation.number_of_guests %></p>
+<p>宿泊人数: <%= @reservation.number_of_guests %>人</p>
 <p>部屋: <%= @room.name %></p>
-<p>総額: <%= @reservation.total_price %></p>
+<p>総額: <%= @reservation.total_price %>円</p>
 
 <%= form_with(model: @reservation, url: reservation_path(@reservation), method: :patch) do |form| %>
   <%= form.hidden_field :check_in_date %>
@@ -15,6 +14,6 @@
   <%= form.hidden_field :total_price %>
   <%= form.submit '予約を確定する', class: 'btn btn-primary' %>
 <% end %>
-<%= link_to '予約を確定する', @reservation, method: :post %>
 <%= link_to '修正する', new_reservation_path(room_id: @reservation.room_id), class: 'btn btn-secondary' %>
+
 

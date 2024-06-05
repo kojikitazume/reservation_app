@@ -71,3 +71,33 @@
     .dropdown:hover .dropdown-menu {
       display: block;
     }
+    .small-image {
+      width: 400px; /* 幅を固定値に設定 */
+      height: 300px; /* 高さを固定値に設定 */
+    }
+    .search-bar {
+      margin-bottom: 20px;
+      display: flex;
+      justify-content: space-between;
+    }
+    
+    .search-field {
+      margin-right: 10px;
+    }
+    
+    .room-item {
+      display: flex;
+      margin-bottom: 20px;
+    }
+    
+    .room-image {
+      margin-right: 20px;
+    }
+    
+    .room-details {
+      display: flex;
+      flex-direction: column;
+    }
+   
+    
+    

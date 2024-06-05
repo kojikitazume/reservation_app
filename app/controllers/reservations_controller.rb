@@ -9,17 +9,12 @@ class ReservationsController < ApplicationController
 
   def new
     @reservation = Reservation.new
-    @reservation.check_in_date = params[:check_in_date]
-    @reservation.check_out_date = params[:check_out_date]
-    @reservation.number_of_guests = params[:number_of_guests]
-    @reservation.room_id = params[:room_id]
-    @reservation.user_id = current_user.id
   end
 
   def create
     @reservation = Reservation.new(reservation_params)
     @reservation.user_id = current_user.id
-    
+
     if @reservation.save
       flash[:notice] = "施設の予約が完了しました"
       redirect_to confirm_reservation_path(@reservation)
@@ -53,7 +48,7 @@ class ReservationsController < ApplicationController
   end
 
   def reservation_params
-    params.require(:reservation).permit(:check_in_date, :check_out_date, :number_of_guests, :room_id, :days, :total_price)
+    params.require(:reservation).permit(:check_in_date, :check_out_date, :number_of_guests, :room_id)
   end
 
   def set_room

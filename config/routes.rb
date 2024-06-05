@@ -5,8 +5,11 @@ Rails.application.routes.draw do
   resources :users, only: [:show, :edit, :update]
 
   # 部屋関連のルーティング
-  resources :rooms, only: [:index, :show, :new, :create]
-
+  resources :rooms, only: [:index, :show, :new, :create] do
+    collection do
+      get 'search'
+    end
+  end
   # 予約関連のルーティング
   resources :reservations, only: [:index, :new, :create, :show, :update] do
     member do

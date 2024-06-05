@@ -1,0 +1,41 @@
+# config/locales/devise/devise.ja.yml
+ja:
+  devise:
+    confirmations:
+      confirmed: "あなたのアカウントが認証されました。"
+      send_instructions: "アカウントの認証方法を数分以内にメールでお知らせします。"
+    failure:
+      already_authenticated: "既にログインしています。"
+      inactive: "アカウントが無効です。"
+      invalid: "メールアドレスまたはパスワードが違います。"
+      locked: "アカウントがロックされています。"
+      not_found_in_database: "メールアドレスまたはパスワードが違います。"
+      timeout: "セッションがタイムアウトしました。もう一度ログインしてください。"
+      unauthenticated: "ログインしてください。"
+      unconfirmed: "アカウントが認証されていません。"
+    mailer:
+      confirmation_instructions:
+        subject: "アカウント認証のお願い"
+      reset_password_instructions:
+        subject: "パスワードリセットのお願い"
+      unlock_instructions:
+        subject: "アカウントロック解除のお願い"
+    passwords:
+      no_token: "トークンが見つかりません。"
+      send_instructions: "パスワードのリセット方法を数分以内にメールでお知らせします。"
+      updated: "パスワードが変更されました。"
+      updated_not_active: "パスワードが変更されましたが、アカウントは無効です。"
+    registrations:
+      signed_up: "アカウント登録が完了しました。"
+      signed_up_but_inactive: "アカウント登録が完了しましたが、認証が必要です。"
+      signed_up_but_locked: "アカウント登録が完了しましたが、アカウントがロックされています。"
+      signed_up_but_unconfirmed: "アカウント登録が完了しましたが、認証が必要です。"
+      update_needs_confirmation: "メールアドレスが変更されました。新しいメールアドレスを確認してください。"
+      updated: "アカウント情報が更新されました。"
+    sessions:
+      signed_in: "ログインしました。"
+      signed_out: "ログアウトしました。"
+      already_signed_out: "既にログアウトしています。"
+    unlocks:
+      send_instructions: "アカウントのロック解除方法を数分以内にメールでお知らせします。"
+      unlocked: "アカウントのロックが解除されました。"

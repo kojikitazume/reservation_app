@@ -1,78 +1,35 @@
-<h1>新規予約</h1>
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 100vh;">
+  <div class="card p-4" style="max-width: 600px; width: 100%;">
+    <div class="card-body">
+        <h1>新規予約</h1>
 
-<%= form_with model: @reservation, url: reservations_path, local: true do |form| %>
+        <%= form_with model: @reservation, url: reservations_path, local: true do |form| %>
+          <div class="field">
+            <%= form.label :check_in_date, 'チェックイン日' %>
+            <%= form.date_field :check_in_date, id: 'check_in_date' %>
+          </div>
 
+          <div class="field">
+            <%= form.label :check_out_date, 'チェックアウト日' %>
+            <%= form.date_field :check_out_date, id: 'check_out_date' %>
+          </div>
 
+          <div class="field">
+            <%= form.label :number_of_guests, '人数' %>
+            <%= form.number_field :number_of_guests, id: 'number_of_guests' %>
+          </div>
 
+          <%= form.hidden_field :room_id, value: @room.id, id: 'room_id' %>
 
+          <div class="actions">
+            <%= form.submit '予約内容を確認する' %>
+          </div>
+        <% end %>
 
+          
 
-
-        <div class="field">
-          <%= form.label :check_in_date, 'チェックイン日' %>
-          <%= form.date_field :check_in_date, id: 'check_in_date' %>
-        </div>
-      
-        <div class="field">
-          <%= form.label :check_out_date, 'チェックアウト日' %>
-          <%= form.date_field :check_out_date, id: 'check_out_date' %>
-        </div>
-      
-        <div class="field">
-          <%= form.label :number_of_guests, '人数' %>
-          <%= form.number_field :number_of_guests, id: 'number_of_guests' %>
-        </div>
-      
-        <%= form.hidden_field :room_id, value: @room.id, id: 'room_id' %>
-      
-        <div class="field">
-          <%= form.label :days, '日数' %>
-          <%= form.text_field :days, id: 'days', disabled: true %>
-        </div>
-      
-        <div class="field">
-          <%= form.label :total_price, '合計金額' %>
-          <%= form.text_field :total_price, id: 'total_price', disabled: true %>
-        </div>
-      
         <div class="actions">
-          <%= form.submit '予約内容を確認する' %>
+          <%= link_to '戻る', room_path(@room) %>
         </div>
-      <% end %>
-      
-      <script>
-        document.addEventListener("DOMContentLoaded", function() {
-          function calculateTotal() {
-            const checkInDate = new Date(document.getElementById('check_in_date').value);
-            const checkOutDate = new Date(document.getElementById('check_out_date').value);
-            const numberOfGuests = parseInt(document.getElementById('number_of_guests').value);
-            const roomPrice = <%= @room.price %>;
-      
-            if (checkInDate && checkOutDate && numberOfGuests && !isNaN(numberOfGuests) && roomPrice) {
-              const timeDifference = checkOutDate - checkInDate;
-              const days = timeDifference / (1000 * 3600 * 24);
-      
-              if (days > 0) {
-                const totalPrice = days * roomPrice * numberOfGuests;
-                document.getElementById('days').value = days;
-                document.getElementById('total_price').value = totalPrice;
-              } else {
-                document.getElementById('days').value = '';
-                document.getElementById('total_price').value = '';
-              }
-            } else {
-              document.getElementById('days').value = '';
-              document.getElementById('total_price').value = '';
-            }
-          }
-      
-          document.getElementById('check_in_date').addEventListener('change', calculateTotal);
-          document.getElementById('check_out_date').addEventListener('change', calculateTotal);
-          document.getElementById('number_of_guests').addEventListener('input', calculateTotal);
-        });
-      </script>
-      
-      <div class="actions">
-        <%= link_to '戻る', room_path(@room) %>
       </div>
-      
+    </div>

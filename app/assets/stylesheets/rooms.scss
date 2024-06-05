@@ -1,3 +1,62 @@
 // Place all the styles related to the Rooms controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
+.room-item {
+    display: flex;
+    align-items: flex-start; /* 画像とテキストの縦位置を揃えます */
+    margin-bottom: 20px; /* 各施設の間にスペースを作ります */
+  }
+  
+  .room-image img {
+    width: 150px; /* 画像の幅を指定して小さくします */
+    height: auto; /* アスペクト比を保つために高さを自動にします */
+    margin-right: 20px; /* 画像とテキストの間にスペースを作ります */
+  }
+  
+  .room-details {
+    flex-grow: 1; /* 残りのスペースをテキストに割り当てます */
+  }
+  .room-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  
+  .room-details {
+    margin-top: 20px;
+    padding: 10px;
+    border-top: 1px solid #eee;
+  }
+  
+  .detail-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+  
+  .detail-label {
+    font-weight: bold;
+  }
+  
+  .room-actions {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-around;
+  }
+  
+  .btn {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+  }
+  
+  .btn:hover {
+    background-color: #0056b3;
+  }
+  
