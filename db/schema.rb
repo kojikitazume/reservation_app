@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_06_05_042235) do
+ActiveRecord::Schema.define(version: 2024_06_01_132617) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -51,7 +51,7 @@ ActiveRecord::Schema.define(version: 2024_06_05_042235) do
     t.date "check_out_date"
     t.integer "number_of_guests"
     t.integer "days"
-    t.integer "total_price"
+    t.decimal "total_price"
     t.index ["room_id"], name: "index_reservations_on_room_id"
     t.index ["user_id"], name: "index_reservations_on_user_id"
   end
@@ -59,14 +59,12 @@ ActiveRecord::Schema.define(version: 2024_06_05_042235) do
   create_table "rooms", force: :cascade do |t|
     t.string "name"
     t.text "description"
-    t.datetime "checkin_date"
-    t.datetime "checkout_date"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.integer "user_id", null: false
     t.integer "price"
     t.string "address"
     t.string "image"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
     t.index ["user_id"], name: "index_rooms_on_user_id"
   end
 
