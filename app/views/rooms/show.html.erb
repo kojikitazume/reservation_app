@@ -1,0 +1,32 @@
+<% if @room.present? %>
+  <div class="room-container">
+    <h1><%= @room.name %></h1>
+
+    <% if @room.image.present? %>
+      <%= image_tag @room.image.url, alt: @room.name %>
+    <% else %>
+      <div class="default-image">
+        <%= image_tag 'default_room_image.png', alt: 'Default Room Image' %>
+      </div>
+    <% end %>
+
+    <div class="room-details">
+      <p><%= @room.description %></p>
+      <div class="detail-item">
+        <span class="detail-label">料金:</span>
+        <span class="detail-value"><%= @room.price %>円/日</span>
+      </div>
+      <div class="detail-item">
+        <span class="detail-label">住所:</span>
+        <span class="detail-value"><%= @room.address %></span>
+      </div>
+    </div>
+
+    <div class="room-actions">
+      <%= link_to '戻る', rooms_path, class: 'btn' %>
+      <%= link_to '予約する', new_reservation_path(room_id: @room.id), class: 'btn' %>
+    </div>
+  </div>
+<% else %>
+  <p>データが見つかりません。</p>
+<% end %>

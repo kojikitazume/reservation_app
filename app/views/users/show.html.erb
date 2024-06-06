@@ -1,0 +1,19 @@
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 100vh;">
+  <div class="card p-4" style="max-width: 600px; width: 100%;">
+    <div class="card-body">
+<h1>アカウント情報</h1>
+
+<p>
+  <strong>Email:</strong>
+  <%= current_user.email %>
+</p>
+
+<p>
+  <strong>Password:</strong>
+  *********
+</p>
+
+<%= link_to 'Edit Profile', edit_user_path %>
+</div>
+  </div>
+</div>

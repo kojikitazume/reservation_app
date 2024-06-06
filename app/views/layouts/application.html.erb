@@ -1,16 +1,77 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>ReservationApp</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
+<head>
+  <title>ReservationApp</title>
+  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+  
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+</head>
 
-    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
-  </head>
+<body>
+<header class="navbar">
+  <div class="logo">
+    <%= link_to root_path do %>
+      <%= image_tag 'logo.png', alt: 'Logo' %>
+    <% end %>
+  </div>
+  <% if user_signed_in? %>
+  <div class="dropdown">
+    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      <%= image_tag(current_user.profile_image.url.presence || 'default-avatar.png', alt: current_user.name, class: "avatar", size: "30x30") %>
+      <%= current_user.name %>
+    </button>
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+      <%= link_to '施設の新規登録', new_room_path, class: "dropdown-item" %>
+      <%= link_to '予約済み一覧', reservations_path(current_user.reservations), class: "dropdown-item" %>
+      <%= link_to '登録済み一覧', rooms_path, class: "dropdown-item" %>
+      <%= link_to 'アカウント設定', user_path(current_user), class: "dropdown-item" %>
+      <%= button_to 'ログアウト', destroy_user_session_path, method: :delete, class: 'dropdown-item' %>
+    </div>
+  </div>
+  <% else %>
+    <%= link_to 'ログイン', new_user_session_path, class: 'btn btn-link nav-item' %>
+    <%= link_to '新規登録', new_user_registration_path, class: 'btn btn-link nav-item' %>
+  <% end %>
+</header>
 
-  <body>
-    <%= yield %>
-  </body>
+<p class="notice"><%= notice %></p>
+<p class="alert"><%= alert %></p>
+
+<%= yield %>
+
+<% if current_page?(root_path) %>
+  <footer class="footer">
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          <%= link_to image_tag('tokyo.jpg', class: 'small-image'), search_rooms_path(area: '東京') %>
+          <br>
+          <%= link_to "東京", search_rooms_path(area: '東京') %>
+        </div>
+        <div class="col">
+          <%= link_to image_tag('osaka.jpg', class: 'small-image'), search_rooms_path(area: '大阪') %>
+          <br>
+          <%= link_to "大阪", search_rooms_path(area: '大阪') %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <%= link_to image_tag('kyoto.jpg', class: 'small-image'), search_rooms_path(area: '京都') %>
+          <br>
+          <%= link_to "京都", search_rooms_path(area: '京都') %>
+        </div>
+        <div class="col">
+          <%= link_to image_tag('sapporo.jpg', class: 'small-image'), search_rooms_path(area: '札幌') %>
+          <br>
+          <%= link_to "札幌", search_rooms_path(area: '札幌') %>
+        </div>
+      </div>
+    </div>
+  </footer>
+<% end %>
+
+</body>
 </html>
+

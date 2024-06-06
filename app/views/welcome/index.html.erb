@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>ReservationApp</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+    <header>
+    </header>
+    
+    <div class="container text-center mt-5">
+      <div class="card mx-auto p-4" style="max-width: 600px;">
+        <div class="card-body">
+          <h1 class="card-title display-4">Potepan Shareで まだ体験したことのない 旅をしよう</h1>
+          <%= form_with url: search_rooms_path, method: :get, class: 'form-inline justify-content-center mt-4' do |form| %>
+            <div class="form-group mb-2">
+              <%= form.text_field :area, placeholder: 'エリア名を入力', class: 'form-control form-control-lg' %>
+            </div>
+            <button class="btn btn-primary btn-lg ml-2 mb-2">探す</button>
+          <% end %>
+        </div>
+      </div>
+    </div>
+    
+    <%= yield %>
+  </body>
+</html>
+

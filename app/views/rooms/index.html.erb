@@ -1,0 +1,34 @@
+<h1>施設一覧</h1>
+
+<div class="search-bar">
+  <%= form_with url: search_rooms_path, method: :get, local: true do %>
+    <div class="search-field">
+      <label for="area">エリア名検索:</label>
+      <%= select_tag :area, options_for_select(['', '東京', '大阪', '京都', '札幌'], selected: params[:area]), prompt: 'エリアを選択' %>
+    </div>
+    </div>
+    <div class="search-field">
+      <label for="keyword">キーワード検索:</label>
+      <%= text_field_tag :keyword, params[:keyword], placeholder: "キーワードを入力" %>
+    </div>
+    <%= submit_tag '検索' %>
+  <% end %>
+</div>
+
+<% @rooms.each do |room| %>
+  <div class="room-item">
+    <div class="room-image">
+      <% if room.image.present? %>
+        <%= image_tag 'default_room_image.png', alt: room.name %>
+      <% else %>
+        <%= image_tag 'default_room_image.png', alt: 'Default Room Image' %>
+      <% end %>
+    </div>
+    <div class="room-details">
+      <p>施設名: <%= link_to room.name, room %></p>
+      <p>紹介文: <%= room.description %></p>
+      <p>宿泊料金: <%= room.price %>円/日</p>
+      <p>作成日: <%= room.created_at.strftime("%Y年%m月%d日") %></p>
+    </div>
+  </div>
+  <% end %>

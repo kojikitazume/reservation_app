@@ -1,0 +1,34 @@
+<p>
+  <strong>チェックイン日:</strong>
+  <%= @reservation.check_in_date %>
+</p>
+
+<p>
+  <strong>チェックアウト日:</strong>
+  <%= @reservation.check_out_date %>
+</p>
+
+<p>
+  <strong>人数:</strong>
+  <%= @reservation.number_of_guests %>
+</p>
+
+<p>
+  <strong>部屋の名前:</strong>
+  <%= @reservation.room.name %>
+</p>
+
+<% if @reservation.room.price.present? %>
+  <p>
+    <strong>合計金額:</strong>
+    <%= @reservation.room.price * (@reservation.check_out_date - @reservation.check_in_date).to_i * @reservation.number_of_guests %>
+  </p>
+<% else %>
+  <p>
+    <strong>合計金額:</strong>
+    情報が不足しています。
+  </p>
+<% end %>
+
+<%= link_to 'Back', room_path(@reservation.room) %>
+
